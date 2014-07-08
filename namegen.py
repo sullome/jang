@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python
+#!/usr/bin/python
 from random import choice
 from random import randrange
 END = ' '
@@ -209,16 +209,3 @@ if __name__ == '__main__':
         result = args.generator(source, args.count, args.max_len)
         
     print('\n'.join(result).title())
-#'lonia_name_male.txt',8,15)
-#'lonia_name_female.txt',8,15)
-#'lonia_thname.txt',8,30,['ис','ос']
-#'dist_name_male.txt',7,5)
-#'dist_name_female.txt',7,5)
-#'dist_thname.txt',8,12,['ава','ото']
-#'sobnia_name_male.txt',9,12)
-#'sobnia_thname.txt',10,12,['ов','ин']
-#'sobnia_name_female.txt',9,10)
-#'sobnia_thname.txt',10,10,['ова','ина']
-#'rond_name_male.txt',7,15
-#'rond_name_female.txt',7,15
-#'rond_thname.txt',8,30,['сон','сен']
