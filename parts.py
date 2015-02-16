@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from random import choice
 from random import randrange
 
@@ -19,7 +18,7 @@ def name_from_parts(source, name_part, max_count, end = ' '):
             name += choice(tuple(contlist))[2]
         if name.endswith(end):
             break
-    return name
+    return name.strip(end)
 
 def concat_end(name, end):
     """Добавляет окончание к слову.
@@ -51,52 +50,11 @@ def concat_end(name, end):
                 name += choice(end)
     return name
 
-def main():
-    import argparse
-    parser = argparse.ArgumentParser(
-        description = '''Три различных генератора имён.''')
-
-
-    parser.add_argument('-p', '--path',
-        help = '''Путь к файлу с базовым списком имён.
-        Имена должны быть записаны по одному на строку''')
-    parser.add_argument('-s', '--source',
-        nargs = '+',
-        help = 'Принимает список имён из командной строки.') 
-    parser.add_argument('-c', '--count',
-        type = int,
-        default = 1,
-        help = 'Количество генерируемых имён.')
-    parser.add_argument('-l', '--length', '--max-length',
-        dest = 'max_len',
-        type = int,
-        default = 10,
-        help = 'Максимальная длина имени.')
-    parser.add_argument('-e', '--ends',
-        nargs = '+',
-        help = 'Принимает список окончаний из командной строки.') 
-
-    args = parser.parse_args()
-
-    if args.ends: args.ends = tuple(args.ends)
-    if not (args.source or args.path):
-        parser.print_help()
-        exit(1)
-
-    source = None
-    end = ' '
-    if args.source: source = list(map(lambda s: s.rstrip() + end, args.source))
-    if args.path: with open(args.path) as f: source = f.readlines()
-    count = args.count
-    max_len = args.max_len
-    ends = args.ends 
-
-    name_part = set(part for name in source for part in name_parts(name))
-    names = [name_from_parts(source, name_part, max_len, end = end)
+def gen_names(src, max_length, count, ends = None, end = ','):
+    name_part = set(part for name in src for part in name_parts(name))
+    names = [name_from_parts(src, name_part, max_length, end = end)
             for i in range(count)]
     for name in names:
         name = concat_end(name, ends)
 
-    print('\n'.join(names).title())
-
-if __name__ == '__main__': main()
+    return '\n'.join(names).title()

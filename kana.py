@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from random import choice
 
 def japan_name(max_len):
@@ -22,7 +21,3 @@ def japan_name(max_len):
     for i in range(randrange(2,max_len/2)):
         name += choice(parts)
     return name
-
-if __name__ == '__main__':
-    from sys import argv
-    print(japan_name(argv[1]).title())

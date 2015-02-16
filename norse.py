@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from random import choice
 from random import randrange
 
@@ -31,6 +30,3 @@ def norse_male_name():
     else:
         name += choice(end)
     return name
-
-if __name__ = '__main__':
-    print norse_male_name().title()
