@@ -1,19 +1,18 @@
 from random import choice
-from random import randrange
 
-def name_parts(name):
+def to_parts(name):
     """Разбивает данную строку на подстроки из трёх символов.
 
     'Василий' --> ['аси', 'сил', 'или', 'лий', 'ий ']
     """
     return [name[i:i+3] for i in range(1,len(name)-2)]
 
-def name_from_parts(source, name_part, max_count, end = ' '):
+def name_from_parts(source, name_parts, max_count, end = ' '):
     """Генерирует имя из предоставленных частей, с заданной максимальной длинной."""
 
     name = choice(source)[:3]
     for i in range(1, max_count - 1):
-        contlist = set(filter(lambda x: x.startswith(name[i:i+2]), name_part))
+        contlist = set(filter(lambda x: x.startswith(name[i:i+2]), name_parts))
         if len(contlist) != 0:
             name += choice(tuple(contlist))[2]
         if name.endswith(end):
@@ -31,7 +30,7 @@ def concat_end(name, end):
     if not end: return name
 
     if name.endswith(end):
-        if randrange(1): # 50%-я замена одного окончания на другое
+        if choice([True, False]): # 50%-я замена одного окончания на другое
             if name.endswith(end[0]):
                 name = name[:name.rfind(end[0])] + end[1]
             else:
@@ -50,11 +49,11 @@ def concat_end(name, end):
                 name += choice(end)
     return name
 
-def gen_names(src, max_length, count, ends = None, end = ','):
-    name_part = set(part for name in src for part in name_parts(name))
-    names = [name_from_parts(src, name_part, max_length, end = end)
+def generate(src, max_length, count, ends = None, end = ','):
+    parts = set(part for name in src for part in to_parts(name))
+    names = [name_from_parts(src, parts, max_length, end = end)
             for i in range(count)]
     for name in names:
         name = concat_end(name, ends)
 
-    return '\n'.join(names).title()
+    return names

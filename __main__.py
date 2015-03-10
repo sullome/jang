@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from random import choice, random
 from string import whitespace
 from os import path, getenv
@@ -12,31 +11,27 @@ def get_max(nat, name):
     else:
         return 10
 
+# TODO for windows
 def get_data_dir():
     d = getenv('XDG_DATA_HOME')
     if d: return path.join(d, 'jang')
     else: return path.join(getenv('HOME'),'.local/share/jang')
 
+def get_words(filename):
+    words = None
+    filepath = path.join(get_data_dir(), filename)
+    with open(filepath) as f:
+        words = f.readlines()
+    return words
+
 def single_name(nat, gender, chance = 0.1):
-    names = None
-    thnames = None
-
-    name = path.join(get_data_dir(), '{}_{}.txt').format(nat, gender)
-    thname = path.join(get_data_dir(), '{}_thname.txt').format(nat)
-
-    with open(name) as f:
-        names = f.readlines()
-    with open(thname) as f:
-        thnames = f.readlines()
+    names = get_words('{}_{}.txt'.format(nat, gender))
+    thnames = get_words('{}_thname.txt'.format(nat))
 
     if random() > chance:
         name = choice(names).strip(',' + whitespace).capitalize()
         thname = choice(thnames).strip(',' + whitespace).capitalize()
     else:
-        if __name__ == '__main__':
-            import parts
-        else:
-            from jang import parts
         max_len = get_max(nat, True)
         name = parts.gen_names(names, max_len, 1)
 
@@ -85,8 +80,8 @@ def main ():
         with open(args.path) as f:
             source = f.readlines()
 
-    print(gen_names(source, args.max_len, args.count, args.ends))
+    print(generate(source, args.max_len, args.count, args.ends))
 
-if __name__ == '__main__':
-    main()
-
+if __name__ = "__main__":
+    print(dir())
+    #main()
