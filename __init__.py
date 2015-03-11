@@ -7,13 +7,8 @@ from random import choice, random
 from string import whitespace
 
 # TODO
-def get_max(nat, name):
-    if nat == 'eng' and not name:
-        return 10
-    elif nat == 'eng' and name:
-        return 6
-    else:
-        return 10
+def get_max(words):
+    return max(len(word) for word in words)
 
 # TODO for windows
 def get_data_dir():
@@ -39,10 +34,10 @@ def single_name(nat, gender, chance = 0.1):
         name = choice(names).strip(',' + whitespace).capitalize()
         thname = choice(thnames).strip(',' + whitespace).capitalize()
     else:
-        max_len = get_max(nat, True)
+        max_len = get_max(names)
         name = parts.generate(names, max_len, 1)
 
-        max_len = get_max(nat, False)
+        max_len = get_max(thnames)
         thname = parts.generate(thnames, max_len, 1)
 
     return '{} {}'.format(name, thname)
