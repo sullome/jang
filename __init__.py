@@ -35,9 +35,9 @@ def single_name(nat, gender, chance = 0.1):
         thname = choice(thnames).strip(',' + whitespace).capitalize()
     else:
         max_len = get_max(names)
-        name = parts.generate(names, max_len, 1)
+        name = parts.generate(names, max_len, 1)[0]
 
         max_len = get_max(thnames)
-        thname = parts.generate(thnames, max_len, 1)
+        thname = parts.generate(thnames, max_len, 1)[0]
 
     return '{} {}'.format(name, thname)
