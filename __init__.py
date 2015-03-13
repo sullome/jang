@@ -2,13 +2,11 @@ __all__ = ['parts', 'kana', 'norse']
 
 from . import parts, kana, norse
 
-from os import path, getenv
+from os import path, getenv, listdir
 from random import choice, random
 from string import whitespace
 
-# TODO
-def get_max(words):
-    return max(len(word) for word in words)
+get_max = lambda words: max(len(word) for word in words)
 
 # TODO for windows
 def get_data_dir():
@@ -23,8 +21,22 @@ def get_words(filename):
         words = f.readlines()
     return words
 
+def check_full(files, nat):
+    if files.count(nat) < 3:
+        return False
+    else:
+        return True
+
 def get_allnat(datapath = get_data_dir()):
-    pass
+    files = listdir(datapath)
+    nats = set()
+    checklist = []
+    for f in files:
+        f = f.split('_')[0]
+        nats.add(f)
+        checklist.append(f)
+    nats = list(nat for nat in nats if check_full(checklist, nat))
+    return nats
 
 def single_name(nat, gender, chance = 0.1):
     names = get_words('{}_{}.txt'.format(nat, gender))
