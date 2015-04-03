@@ -32,9 +32,11 @@ if not (args.source or args.path):
     exit(1)
 
 source = None
+end = ','
 if args.source: source = list(map(lambda s: s.rstrip() + end, args.source))
 if args.path:
     with open(args.path) as f:
         source = f.readlines()
 
-print(parts.generate(source, args.max_len, args.count, args.ends))
+import parts
+print('\n'.join(parts.generate(source, args.max_len, args.count, args.ends)))
