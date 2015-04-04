@@ -3,6 +3,7 @@ __all__ = ['parts', 'kana', 'norse']
 from . import parts, kana, norse
 
 from os import path, getenv, listdir
+from sys import platform
 from random import choice, random
 from string import whitespace
 
@@ -10,9 +11,12 @@ get_max = lambda words: max(len(word) for word in words)
 
 # TODO for windows
 def get_data_dir():
-    d = getenv('XDG_DATA_HOME')
-    if d: return path.join(d, 'jang')
-    else: return path.join(getenv('HOME'),'.local/share/jang')
+    if path.isdir('data'):
+        return 'data'
+    elif platform.startswith('linux'):
+        d = getenv('XDG_DATA_HOME')
+        if d: return path.join(d, 'jang')
+        else: return path.join(getenv('HOME'),'.local/share/jang')
 
 def get_words(filename):
     words = None
