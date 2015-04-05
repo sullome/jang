@@ -18,10 +18,10 @@ def get_data_dir():
         if d: return path.join(d, 'jang')
         else: return path.join(getenv('HOME'),'.local/share/jang')
 
-def get_words(filename):
+def get_words(filename, datapath = get_data_dir()):
     words = None
     filepath = path.join(get_data_dir(), filename)
-    with open(filepath) as f:
+    with open(filepath, encoding='utf-8') as f:
         words = f.readlines()
     return words
 
