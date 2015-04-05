@@ -24,23 +24,6 @@ def get_words(filename, data):
         words = f.readlines()
     return words
 
-def check_full(files, nat):
-    if files.count(nat) < 3:
-        return False
-    else:
-        return True
-
-def get_allnat(data):
-    files = listdir(data)
-    nats = set()
-    checklist = []
-    for f in files:
-        f = f.split('_')[0]
-        nats.add(f)
-        checklist.append(f)
-    nats = list(nat for nat in nats if check_full(checklist, nat))
-    return nats
-
 def single_name(nat, gender, chance = 0.1, datapath = get_data_dir()):
     names = get_words('{}_{}.txt'.format(nat, gender), datapath)
     thnames = get_words('{}_thname.txt'.format(nat), datapath)
