@@ -9,7 +9,6 @@ from string import whitespace
 
 get_max = lambda words: max(len(word) for word in words)
 
-# TODO for windows
 def get_data_dir():
     if path.isdir('data'):
         return 'data'
@@ -18,9 +17,9 @@ def get_data_dir():
         if d: return path.join(d, 'jang')
         else: return path.join(getenv('HOME'),'.local/share/jang')
 
-def get_words(filename, datapath = get_data_dir()):
+def get_words(filename, data):
     words = None
-    filepath = path.join(get_data_dir(), filename)
+    filepath = path.join(data, filename)
     with open(filepath, encoding='utf-8') as f:
         words = f.readlines()
     return words
@@ -31,8 +30,8 @@ def check_full(files, nat):
     else:
         return True
 
-def get_allnat(datapath = get_data_dir()):
-    files = listdir(datapath)
+def get_allnat(data):
+    files = listdir(data)
     nats = set()
     checklist = []
     for f in files:
@@ -42,9 +41,9 @@ def get_allnat(datapath = get_data_dir()):
     nats = list(nat for nat in nats if check_full(checklist, nat))
     return nats
 
-def single_name(nat, gender, chance = 0.1):
-    names = get_words('{}_{}.txt'.format(nat, gender))
-    thnames = get_words('{}_thname.txt'.format(nat))
+def single_name(nat, gender, chance = 0.1, datapath = get_data_dir()):
+    names = get_words('{}_{}.txt'.format(nat, gender), datapath)
+    thnames = get_words('{}_thname.txt'.format(nat), datapath)
 
     if random() > chance:
         name = choice(names).strip(',' + whitespace).capitalize()
