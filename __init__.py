@@ -2,7 +2,7 @@ __all__ = ['parts', 'kana', 'norse']
 
 from . import parts, kana, norse
 
-from os import path, getenv
+from os import path
 from random import choice, random
 from string import whitespace
 
